@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Premium Industrial tokens (CLAUDE.md). Defined on :root and exposed
+   to Tailwind as the ONLY color palette in the project.
+   Accent = the logo blue sampled from public/brand/logo.png.
+   ------------------------------------------------------------------ */
+:root {
+  --ink: #0f1216;
+  --slate: #1a1f26;
+  --slate-raised: #232a33;
+  --bone: #f5f4f1;
+  --bone-raised: #ffffff;
+  --rule-dark: #2e3640;
+  --rule-light: #d9d6cf;
+  --text-on-dark: #eceae6;
+  --muted-on-dark: #9aa3ae;
+  --text-on-light: #1a1f26;
+  --muted-on-light: #5b6470;
+  --accent: #00aeef;
+  --accent-hover: #14b4f0;
+  --header-h: 72px;
+}
+
+@theme {
+  --color-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-slate-raised: var(--slate-raised);
+  --color-bone: var(--bone);
+  --color-bone-raised: var(--bone-raised);
+  --color-rule-dark: var(--rule-dark);
+  --color-rule-light: var(--rule-light);
+  --color-on-dark: var(--text-on-dark);
+  --color-muted-on-dark: var(--muted-on-dark);
+  --color-on-light: var(--text-on-light);
+  --color-muted-on-light: var(--muted-on-light);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-display: var(--font-barlow-condensed), "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    background-color: var(--ink);
+    color: var(--text-on-dark);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--ink);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border-radius: 0;
+    font: inherit;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Reveal targets stay hidden until GSAP runs, so nothing flashes before the
+     masked reveal. Under reduced motion they are simply visible. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js-reveal {
+      opacity: 0;
+    }
+    .js-split {
+      visibility: hidden;
+    }
+    .js-reveal-line {
+      transform: scaleX(0);
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1440px;
+    padding-inline: clamp(1.5rem, 5vw, 4.5rem);
+  }
+
+  .display-xl,
+  .display-lg,
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+
+  .display-xl {
+    font-size: clamp(3rem, 6vw, 6.5rem);
+    line-height: 0.95;
+  }
+
+  .display-lg {
+    font-size: clamp(2.5rem, 4.6vw, 4.75rem);
+    line-height: 1;
+  }
+
+  .display-md {
+    font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+    line-height: 1.05;
+  }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+
+  @media (min-width: 1024px) {
+    .lede {
+      font-size: 1.125rem;
+    }
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Blueprint texture for dark sections: a 48px drafting grid plus SVG grain.
+     Pure CSS, no image files. */
+  .blueprint {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .blueprint::before,
+  .blueprint::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .blueprint::before {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .blueprint::after {
+    opacity: 0.03;
+    background-size: 240px 240px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  /* Header veil: a soft --ink gradient behind the header once the page has
+     scrolled. No blur, so headline text passing underneath stays crisp. */
+  .header-veil {
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 75%, transparent), transparent);
+  }
+
+  /* Hero shade (HERO_BRIEF.md step 5): ink at the left edge, eased out by 55% of the width, so the headline
+     stays legible while the house on the right keeps its light. Measured with scripts/hero-contrast.mjs. */
+  .hero-shade {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ink) 70%, transparent) 0%,
+      color-mix(in srgb, var(--ink) 55%, transparent) 15%,
+      color-mix(in srgb, var(--ink) 36%, transparent) 30%,
+      color-mix(in srgb, var(--ink) 16%, transparent) 44%,
+      transparent 55%
+    );
+  }
+
+  /* Hero trust bar: an evenly spaced row on desktop; below lg a slow, seamless
+     marquee (two identical copies, track slides by exactly one copy width). */
+  .trust-scroller {
+    overflow: hidden;
+  }
+
+  .trust-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+  }
+
+  .trust-copy {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 2rem;
+  }
+
+  @media (max-width: 1023.98px) {
+    .trust-scroller {
+      padding-left: 1.5rem;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .trust-track {
+        animation: trust-marquee 48s linear infinite;
+      }
+      .trust-track:hover,
+      .trust-track[data-paused="true"] {
+        animation-play-state: paused;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .trust-scroller {
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .trust-scroller::-webkit-scrollbar {
+        display: none;
+      }
+      .trust-copy[aria-hidden="true"] {
+        display: none;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .trust-track {
+      width: 100%;
+      animation: none;
+    }
+    .trust-copy {
+      width: 100%;
+      max-width: 1440px;
+      margin-inline: auto;
+      justify-content: space-between;
+      padding-inline: clamp(1.5rem, 5vw, 4.5rem);
+      /* Keep the last badge clear of the Chatling chat bubble fixed at the bottom-right corner. */
+      padding-right: calc(clamp(1.5rem, 5vw, 4.5rem) + 80px);
+    }
+    .trust-copy[aria-hidden="true"] {
+      display: none;
+    }
+  }
+}
+
+@keyframes trust-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}

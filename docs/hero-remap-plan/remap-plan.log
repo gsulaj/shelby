@@ -1,0 +1,7 @@
+source 367 frames → output 350 frames (14.58 s); rate 1.00–1.44; 250 frames pass through untouched
+  sped up: frames 130–186 (57 → 49 frames, max 1.30×)
+  sped up: frames 240–276 (37 → 32 frames, max 1.39×)
+  sped up: frames 344–366 (23 → 19 frames, max 1.44×)
+  loop seam: rate 1.35 into the seam, 1.00 out of it
+PASS=64:64
+K=350
