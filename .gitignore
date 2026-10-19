@@ -61,3 +61,4 @@ node_modules/
 out/
 .env*
 !.env*.example
+public/media/*.v1.*
